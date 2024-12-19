@@ -1,11 +1,20 @@
 import numpy as np
 
-# Quantum State Initialization
+# ------------------------------------------
+# SECTION 1: Qubit Initialization
+# ------------------------------------------
 def initialize_qubit_state():
-    """Initialize a simple qubit in |0> state."""
+    """
+    Initialize a simple qubit in the |0> state.
+
+    Returns:
+        numpy.array: Quantum state vector representing |0>.
+    """
     return np.array([1, 0], dtype=complex)
 
-# Quantum State Evolution
+# ------------------------------------------
+# SECTION 2: Quantum State Evolution
+# ------------------------------------------
 def evolve_qubit_state(qubit, operator):
     """
     Evolve a qubit state using a specified operator (gate).
@@ -21,7 +30,9 @@ def evolve_qubit_state(qubit, operator):
         raise ValueError("Operator dimensions must match qubit state dimensions.")
     return operator @ qubit
 
-# Multi-Dimensional State Mapping
+# ------------------------------------------
+# SECTION 3: State Mapping to Higher Dimensions
+# ------------------------------------------
 def map_state_to_dimension(qubit_state, dimensions=3):
     """
     Map a qubit state to higher dimensions for visualization or computation.
@@ -37,21 +48,23 @@ def map_state_to_dimension(qubit_state, dimensions=3):
         raise ValueError("Cannot map to dimensions smaller than the qubit state.")
     return np.pad(qubit_state, (0, dimensions - len(qubit_state)), 'constant')
 
-# Main Execution
+# ------------------------------------------
+# SECTION 4: Main Execution
+# ------------------------------------------
 if __name__ == "__main__":
-    # Initialize qubit in |0> state
+    # STEP 1: Initialize qubit in |0> state
     qubit = initialize_qubit_state()
     print(f"Initial Qubit State: {qubit}")
 
-    # Apply Quantum Gate (X Gate)
+    # STEP 2: Apply Quantum Gate (X Gate)
     GATES = {
-        "X": np.array([[0, 1], [1, 0]]),
-        "H": np.array([[1, 1], [1, -1]]) / np.sqrt(2),
+        "X": np.array([[0, 1], [1, 0]]),  # Pauli-X Gate
+        "H": np.array([[1, 1], [1, -1]]) / np.sqrt(2),  # Hadamard Gate
     }
     X_GATE = GATES["X"]
     evolved_qubit = evolve_qubit_state(qubit, X_GATE)
     print(f"Evolved Qubit State: {evolved_qubit}")
 
-    # Map State to Higher Dimensions
+    # STEP 3: Map State to Higher Dimensions
     mapped_state = map_state_to_dimension(evolved_qubit, dimensions=4)
     print(f"Mapped State to 4D: {mapped_state}")
